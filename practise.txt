@@ -1,0 +1,25 @@
+DELIMITER //
+DROP FUNCTION IF EXISTS F1 //
+CREATE FUNCTION F1 (empno INT)
+  RETURNS INT
+  READS SQL DATA
+  DETERMINISTIC
+BEGIN
+ DECLARE experience INT;
+
+  SELECT TIMESTAMPDIFF(YEAR, e.hire_date, CURDATE()) INTO experience
+    FROM employees e WHERE e.employee_id = empno;
+
+  RETURN experience;
+END //
+DELIMITER ;
+
+DELIMITER //
+mysql>
+mysql> CREATE FUNCTION DAC16(X INT, Y INT)
+    -> RETURNS INT
+    -> BEGIN
+    ->
+    -> RETURN X + Y;
+    ->
+    -> END //
